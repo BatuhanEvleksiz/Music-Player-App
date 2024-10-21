@@ -1,16 +1,16 @@
 const image = document.getElementById('cover'),
 title = document.getElementById('music-title'),
 artist = document.getElementById('music-artist'),
-currentTimeEl =document.getElementById('current-time'),
-durationEl =document.getElementById('duration'),
-progress =document.getElementById('progress'),
-playerProgress =document.getElementById('player-progress'),
-prevBtn =document.getElementById('prev'),
-nextBtn =document.getElementById('next'),
-playBtn=document.getElementById('play'),
-background =document.getElementById('bg-img');
+currentTimeEl = document.getElementById('current-time'),
+durationEl = document.getElementById('duration'),
+progress = document.getElementById('progress'),
+playerProgress = document.getElementById('player-progress'),
+prevBtn = document.getElementById('prev'),
+nextBtn = document.getElementById('next'),
+playBtn = document.getElementById('play'),
+background = document.getElementById('bg-img');
 
-const music = new Audio()
+const music = new Audio();
 
 const songs = [
     {
@@ -46,18 +46,14 @@ function togglePlay() {
 
 function playMusic() {
     isPlaying = true;
-    // Change play button icon
     playBtn.classList.replace('fa-play', 'fa-pause');
-    // Set button hover title
     playBtn.setAttribute('title', 'Pause');
     music.play();
 }
 
 function pauseMusic() {
     isPlaying = false;
-    // Change pause button icon
     playBtn.classList.replace('fa-pause', 'fa-play');
-    // Set button hover title
     playBtn.setAttribute('title', 'Play');
     music.pause();
 }
@@ -91,6 +87,29 @@ function setProgressBar(e) {
     const clickX = e.offsetX;
     music.currentTime = (clickX / width) * music.duration;
 }
+
+function rewindMusic() {
+    music.currentTime = Math.max(0, music.currentTime - 10); 
+}
+
+function forwardMusic() {
+    music.currentTime = Math.min(music.duration, music.currentTime + 10); 
+}
+
+document.addEventListener('keydown', (event) => {
+    if (event.code === 'Space') {
+        event.preventDefault(); 
+        togglePlay();
+    } else if (event.code === 'ArrowRight') {
+        changeMusic(1); 
+    } else if (event.code === 'ArrowLeft') {
+        changeMusic(-1); 
+    } else if (event.code === 'KeyJ') {
+        rewindMusic(); 
+    } else if (event.code === 'KeyL') {
+        forwardMusic(); 
+    }
+});
 
 playBtn.addEventListener('click', togglePlay);
 prevBtn.addEventListener('click', () => changeMusic(-1));
