@@ -100,6 +100,9 @@ document.addEventListener('keydown', (event) => {
     if (event.code === 'Space') {
         event.preventDefault(); 
         togglePlay();
+    }else if (event.code === 'KeyK') {
+        event.preventDefault(); 
+        togglePlay();
     } else if (event.code === 'ArrowRight') {
         changeMusic(1); 
     } else if (event.code === 'ArrowLeft') {
